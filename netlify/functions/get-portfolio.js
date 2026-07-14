@@ -7,13 +7,16 @@
 // (ID sbagliati, token scaduto, rate limit...), ricade sul seed statico
 // bundlato in data/portfolio-seed.json, così la pagina non si rompe mai.
 //
-// ATTENZIONE (da verificare prima di considerare "live" la sezione):
-// Coda è stato ridenominato "Superhuman Docs" e il doc IRM oggi vive lì.
-// Non è confermato che l'endpoint classico https://coda.io/apis/v1 risponda
-// ancora con l'ID doc/tabella così come recuperati dall'MCP Superhuman Docs
-// (che usa un proprio schema di ID interno, non necessariamente identico
-// a quello dell'API REST classica di Coda). Vedi README.md per i dettagli
-// su come reperire gli ID corretti direttamente dall'URL del doc su Coda.
+// ID e colonne VERIFICATI (2026-07-14) contro il doc reale via connector
+// Superhuman Docs:
+//   CODA_DOC_ID   = l0LQphn-KT           (doc "Imment - Clienti")
+//   CODA_TABLE_ID = grid-jvjtv77lW1      (tabella "MDB - IRM", 30 righe)
+// Colonne usate qui sotto allineate ai nomi reali della tabella:
+//   Company, Url Image (logo), Sito web, Pitch Deck [URL], Campagna SFP,
+//   Importo Round, Landing Page, LOI.
+// Resta da confermare solo che l'endpoint REST classico https://coda.io/apis/v1
+// risponda con questi ID usando un CODA_API_TOKEN valido (l'ID doc coincide
+// con quello degli URL dei loghi codahosted, quindi è molto probabile).
 
 const seed = require('../../data/portfolio-seed.json');
 
@@ -34,8 +37,15 @@ function extractText(value) {
 
 function extractUrl(value) {
   if (value === null || value === undefined) return '';
-  if (typeof value === 'object' && 'url' in value) return value.url || '';
-  if (typeof value === 'string' && value.startsWith('http')) return value;
+  // valueFormat=simple restituisce quasi sempre stringhe; gli oggetti
+  // (urlref / imageurlref) sono gestiti come rete di sicurezza.
+  if (typeof value === 'object') {
+    if ('url' in value && value.url) return String(value.url).trim();
+    return '';
+  }
+  // NON filtriamo per prefisso "http": alcuni link (es. "www.awentia.com")
+  // sono salvati senza protocollo. Il frontend normalizza col https://.
+  if (typeof value === 'string') return value.trim();
   return '';
 }
 
@@ -69,13 +79,15 @@ async function fetchLiveFromCoda() {
 
     return {
       name: extractText(v['Company']),
-      logo: extractUrl(v['Logo']),
+      // 'Url Image' è la colonna testo con l'URL codahosted diretto;
+      // fallback su 'Logo' (colonna immagine) se non disponibile.
+      logo: extractUrl(v['Url Image']) || extractUrl(v['Logo']),
       website: extractUrl(v['Sito web']),
-      pitchDeck: extractUrl(v['Pitch deck URL']),
+      pitchDeck: extractUrl(v['Pitch Deck [URL]']),
       roundNumber: roundNumber.replace(' Round', ''),
       roundStatus,
-      importo: extractText(v['Importo round']),
-      landingPage: extractUrl(v['LP']),
+      importo: extractText(v['Importo Round']),
+      landingPage: extractUrl(v['Landing Page']),
       loi: extractUrl(v['LOI']),
     };
   });
