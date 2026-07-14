@@ -319,32 +319,51 @@ p.section-sub {
   transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 .company-card:hover { box-shadow: var(--shadow-strong); transform: translateY(-2px); }
-.company-card .card-top {
+.company-card .card-head {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 .company-card .logo-box {
-  width: 52px; height: 52px;
-  border-radius: 10px;
-  background: var(--imm-neutral-base);
+  width: 60px; height: 60px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--imm-neutral-mid);
+  box-shadow: var(--shadow);
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
   flex-shrink: 0;
 }
-.company-card .logo-box img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+.company-card .logo-box img { width: 100%; height: 100%; object-fit: contain; padding: 7px; }
 .company-card .logo-fallback {
   font-family: var(--imm-font-accent);
   font-weight: 700;
+  font-size: 19px;
   color: var(--imm-trust-blue);
 }
-.company-card h3 { font-size: 16px; margin: 0; color: var(--imm-text-primary); line-height: 1.3; }
-.company-card .meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.company-card .card-body { display: flex; flex-direction: column; gap: 8px; }
+.company-card h3 { font-size: 17px; margin: 0; color: var(--imm-text-primary); line-height: 1.3; }
+
+.round-pill {
+  align-self: flex-start;
+  font-family: var(--imm-font-heading);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 4px 11px;
+  border-radius: 6px;
+  background: var(--imm-neutral-base);
+  border: 1px solid var(--imm-neutral-mid);
+  color: var(--imm-text-secondary);
+}
 
 .status-badge {
+  flex-shrink: 0;
+  white-space: nowrap;
   font-size: 11.5px;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 5px 11px;
   border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -353,22 +372,20 @@ p.section-sub {
 .status-chiuso { background: var(--imm-neutral-mid); color: var(--imm-trust-blue-mid); }
 .status-coming-soon { background: rgba(250,222,41,0.25); color: #8a6d00; }
 
-.importo-tag {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--imm-text-secondary);
-}
-
 .company-card .card-actions {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: auto;
-  padding-top: 12px;
+  padding-top: 14px;
   border-top: 1px solid var(--imm-neutral-base);
 }
-.company-card .card-actions .row { display: flex; gap: 8px; }
-.company-card .card-actions .btn { flex: 1; padding: 9px 12px; font-size: 13px; }
+.company-card .card-actions .link-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.company-card .card-actions .link-row .btn { flex: 1 1 0; min-width: 0; }
+.company-card .card-actions .btn { padding: 10px 12px; font-size: 13px; }
+.btn-ghost { gap: 6px; }
+.btn-ghost svg, .btn-secondary svg { width: 15px; height: 15px; flex-shrink: 0; }
+.btn-primary svg { width: 17px; height: 17px; flex-shrink: 0; margin-left: 2px; }
 
 .portfolio-empty {
   text-align: center;
