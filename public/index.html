@@ -138,6 +138,27 @@
     <h2 class="section-title">Schede IRM: le startup in raccolta e già finanziate</h2>
     <p class="section-sub">Ogni scheda è collegata al portfolio SFP di Imment. Sito, pitch deck, landing di adesione e lettera d'intenti, dove disponibili.</p>
 
+    <!-- IN EVIDENZA: carosello round aperti -->
+    <div class="featured" id="featured" hidden>
+      <div class="featured-head">
+        <div>
+          <p class="featured-label"><span class="live-dot"></span> Round aperti ora</p>
+          <h3 class="featured-title">Opportunità in raccolta</h3>
+        </div>
+        <div class="carousel-nav">
+          <button class="carousel-btn" id="carousel-prev" type="button" aria-label="Startup precedenti">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="carousel-btn" id="carousel-next" type="button" aria-label="Startup successive">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="carousel-viewport" id="carousel-viewport"></div>
+      <div class="carousel-dots" id="carousel-dots" aria-hidden="true"></div>
+    </div>
+
+    <!-- DATABASE COMPLETO -->
     <div class="portfolio-toolbar">
       <div class="filter-pills" id="filter-pills">
         <button class="filter-pill is-active" data-filter="all">Tutte</button>
@@ -155,6 +176,10 @@
       <div class="skeleton-card"></div>
       <div class="skeleton-card"></div>
       <div class="skeleton-card"></div>
+    </div>
+
+    <div class="load-more-wrap" id="load-more-wrap" hidden>
+      <button class="btn btn-secondary" id="load-more" type="button">Carica altre startup</button>
     </div>
   </div>
 </section>

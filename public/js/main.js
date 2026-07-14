@@ -2,9 +2,17 @@
   const grid = document.getElementById('portfolio-grid');
   const dataNote = document.getElementById('data-note');
   const pillsWrap = document.getElementById('filter-pills');
+  const loadMoreWrap = document.getElementById('load-more-wrap');
+  const loadMoreBtn = document.getElementById('load-more');
 
+  const PAGE_SIZE = 6;
   let allCompanies = [];
   let currentFilter = 'all';
+  let visibleCount = PAGE_SIZE;
+
+  function isOpenRound(c) {
+    return (c.roundStatus || '').toLowerCase().includes('in corso');
+  }
 
   function statusClass(status) {
     const s = (status || '').toLowerCase();
@@ -81,17 +89,30 @@
     `;
   }
 
+  function filteredList() {
+    return currentFilter === 'all'
+      ? allCompanies
+      : allCompanies.filter((c) => (c.roundStatus || '').toLowerCase() === currentFilter.toLowerCase());
+  }
+
   function render() {
-    const filtered =
-      currentFilter === 'all'
-        ? allCompanies
-        : allCompanies.filter((c) => (c.roundStatus || '').toLowerCase() === currentFilter.toLowerCase());
+    const filtered = filteredList();
 
     if (!filtered.length) {
       grid.innerHTML = `<div class="portfolio-empty">Nessuna startup in questo stato al momento.</div>`;
+      loadMoreWrap.hidden = true;
       return;
     }
-    grid.innerHTML = filtered.map(companyCard).join('');
+
+    const shown = filtered.slice(0, visibleCount);
+    grid.innerHTML = shown.map(companyCard).join('');
+
+    const remaining = filtered.length - shown.length;
+    loadMoreWrap.hidden = remaining <= 0;
+    if (remaining > 0) {
+      const next = Math.min(PAGE_SIZE, remaining);
+      loadMoreBtn.textContent = `Carica altre startup (${next} di ${remaining})`;
+    }
   }
 
   pillsWrap.addEventListener('click', (e) => {
@@ -100,13 +121,106 @@
     pillsWrap.querySelectorAll('.filter-pill').forEach((p) => p.classList.remove('is-active'));
     btn.classList.add('is-active');
     currentFilter = btn.dataset.filter;
+    visibleCount = PAGE_SIZE; // ogni cambio filtro riparte da 6
     render();
   });
+
+  loadMoreBtn.addEventListener('click', () => {
+    visibleCount += PAGE_SIZE;
+    render();
+  });
+
+  // ---------- Carosello "Round aperti" (auto-avanzamento a step) ----------
+  function setupCarousel(companies) {
+    const featured = document.getElementById('featured');
+    const viewport = document.getElementById('carousel-viewport');
+    const dotsWrap = document.getElementById('carousel-dots');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+
+    const open = companies.filter(isOpenRound);
+    featured.hidden = open.length === 0;
+    if (!open.length) return;
+
+    viewport.innerHTML = open.map(companyCard).join('');
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timer = null;
+
+    const pageWidth = () => viewport.clientWidth || 1;
+    const pageCount = () => Math.max(1, Math.round(viewport.scrollWidth / pageWidth()));
+    const currentPage = () => Math.round(viewport.scrollLeft / pageWidth());
+
+    function renderDots() {
+      const n = pageCount();
+      // niente controlli se tutto sta in una schermata
+      const single = n <= 1;
+      dotsWrap.style.display = single ? 'none' : '';
+      prevBtn.style.display = nextBtn.style.display = single ? 'none' : '';
+      if (single) { dotsWrap.innerHTML = ''; return; }
+      dotsWrap.innerHTML = Array.from({ length: n }, (_, i) =>
+        `<button class="carousel-dot" type="button" data-page="${i}" aria-label="Vai al gruppo ${i + 1}"></button>`
+      ).join('');
+      updateDots();
+    }
+
+    function updateDots() {
+      const cur = currentPage();
+      dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) =>
+        d.classList.toggle('is-active', i === cur)
+      );
+    }
+
+    function goTo(page) {
+      const n = pageCount();
+      const p = ((page % n) + n) % n; // wrap circolare
+      viewport.scrollTo({ left: p * pageWidth(), behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    const next = () => goTo(currentPage() + 1);
+    const prev = () => goTo(currentPage() - 1);
+
+    function start() {
+      stop();
+      if (!reduceMotion && pageCount() > 1) timer = setInterval(next, 5000);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+    const restart = () => { stop(); start(); };
+
+    prevBtn.addEventListener('click', () => { prev(); restart(); });
+    nextBtn.addEventListener('click', () => { next(); restart(); });
+    dotsWrap.addEventListener('click', (e) => {
+      const b = e.target.closest('.carousel-dot');
+      if (b) { goTo(Number(b.dataset.page)); restart(); }
+    });
+
+    let rafId;
+    viewport.addEventListener('scroll', () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateDots);
+    }, { passive: true });
+
+    featured.addEventListener('mouseenter', stop);
+    featured.addEventListener('mouseleave', start);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+
+    let resizeT;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeT);
+      resizeT = setTimeout(renderDots, 200);
+    });
+
+    renderDots();
+    start();
+  }
 
   fetch('/api/portfolio')
     .then((res) => res.json())
     .then((data) => {
       allCompanies = data.companies || [];
+      setupCarousel(allCompanies);
       render();
       if (data.source === 'seed') {
         dataNote.textContent = 'Dati statici (fetch live da Coda non ancora configurato)';

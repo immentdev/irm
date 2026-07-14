@@ -271,6 +271,94 @@ p.section-sub {
 }
 .cta-banner .btn-primary { position: relative; }
 
+/* ---------- Featured carousel (round aperti) ---------- */
+.featured { margin-bottom: 44px; }
+.featured-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.featured-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--imm-signal-teal-dark);
+  margin: 0 0 6px;
+}
+.live-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--imm-signal-teal);
+  box-shadow: 0 0 0 0 rgba(5, 216, 200, 0.6);
+  animation: livePulse 1.8s ease-out infinite;
+}
+@keyframes livePulse {
+  0% { box-shadow: 0 0 0 0 rgba(5, 216, 200, 0.55); }
+  70% { box-shadow: 0 0 0 8px rgba(5, 216, 200, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(5, 216, 200, 0); }
+}
+.featured-title {
+  font-family: var(--imm-font-accent);
+  font-size: clamp(20px, 2.4vw, 26px);
+  color: var(--imm-text-primary);
+  margin: 0;
+}
+.carousel-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.carousel-btn {
+  width: 42px; height: 42px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 999px;
+  border: 1.5px solid var(--imm-neutral-mid);
+  background: #fff;
+  color: var(--imm-trust-blue-dark);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+.carousel-btn:hover { background: var(--imm-trust-blue-dark); border-color: var(--imm-trust-blue-dark); color: #fff; transform: translateY(-1px); }
+.carousel-btn svg { width: 20px; height: 20px; }
+
+.carousel-viewport {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 12px 6px;
+  margin: -12px -6px;
+}
+.carousel-viewport::-webkit-scrollbar { display: none; }
+/* 4 card per vista su desktop */
+.carousel-viewport > .company-card {
+  flex: 0 0 calc((100% - 60px) / 4);
+  scroll-snap-align: start;
+  border-top: 3px solid var(--imm-signal-teal);
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+}
+.carousel-dot {
+  width: 8px; height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: var(--imm-neutral-mid);
+  cursor: pointer;
+  transition: background 0.2s ease, width 0.2s ease;
+}
+.carousel-dot.is-active { background: var(--imm-trust-blue); width: 22px; }
+
 /* ---------- Portfolio grid ---------- */
 .portfolio-toolbar {
   display: flex;
@@ -326,8 +414,8 @@ p.section-sub {
   gap: 12px;
 }
 .company-card .logo-box {
-  width: 60px; height: 60px;
-  border-radius: 12px;
+  width: 80px; height: 80px;
+  border-radius: 14px;
   background: #fff;
   border: 1px solid var(--imm-neutral-mid);
   box-shadow: var(--shadow);
@@ -335,11 +423,11 @@ p.section-sub {
   overflow: hidden;
   flex-shrink: 0;
 }
-.company-card .logo-box img { width: 100%; height: 100%; object-fit: contain; padding: 7px; }
+.company-card .logo-box img { width: 100%; height: 100%; object-fit: contain; padding: 9px; }
 .company-card .logo-fallback {
   font-family: var(--imm-font-accent);
   font-weight: 700;
-  font-size: 19px;
+  font-size: 24px;
   color: var(--imm-trust-blue);
 }
 .company-card .card-body { display: flex; flex-direction: column; gap: 8px; }
@@ -380,12 +468,24 @@ p.section-sub {
   padding-top: 14px;
   border-top: 1px solid var(--imm-neutral-base);
 }
-.company-card .card-actions .link-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.company-card .card-actions .link-row { display: flex; gap: 8px; }
 .company-card .card-actions .link-row .btn { flex: 1 1 0; min-width: 0; }
-.company-card .card-actions .btn { padding: 10px 12px; font-size: 13px; }
-.btn-ghost { gap: 6px; }
+.company-card .card-actions .btn { padding: 10px 12px; font-size: 13px; white-space: nowrap; }
+.company-card .card-actions .btn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Le CTA a tutta larghezza possono andare a capo in modo pulito (centrate) */
+.company-card .card-actions .btn-block { white-space: normal; text-align: center; }
+.company-card .card-actions .btn-block span { white-space: normal; overflow: visible; }
+.btn-ghost { gap: 6px; padding-left: 12px; padding-right: 12px; }
 .btn-ghost svg, .btn-secondary svg { width: 15px; height: 15px; flex-shrink: 0; }
 .btn-primary svg { width: 17px; height: 17px; flex-shrink: 0; margin-left: 2px; }
+
+/* ---------- Load more ---------- */
+.load-more-wrap { display: flex; justify-content: center; margin-top: 32px; }
+.load-more-wrap .btn { padding: 12px 28px; }
 
 .portfolio-empty {
   text-align: center;
@@ -424,9 +524,14 @@ footer img { height: 26px; margin-bottom: 12px; }
 @media (max-width: 860px) {
   .why-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: repeat(2, 1fr); }
+  /* 2 card per vista */
+  .carousel-viewport > .company-card { flex: 0 0 calc((100% - 20px) / 2); }
 }
 @media (max-width: 560px) {
   .steps { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .cta-banner { padding: 32px 24px; }
+  /* 1 card per vista */
+  .carousel-viewport > .company-card { flex: 0 0 100%; }
+  .featured-head { align-items: flex-start; }
 }
