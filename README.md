@@ -33,54 +33,57 @@ netlify.toml
 Quindi il sito **funziona da subito**, anche senza aver configurato nulla —
 mostrerà i dati statici finché non attivi il fetch live.
 
-## ⚠️ Rischio da verificare prima di attivare il fetch live
+## ✅ Fetch live: ATTIVO e verificato (2026-07-14)
 
-Coda è stato ridenominato **Superhuman Docs**. Ho estratto i dati del doc
-tramite il connector MCP "Superhuman Docs", che usa un proprio schema di ID
-interno (es. `superhuman://docs/cxRCPRNRPa/...`). **Non è garantito che
-questo ID coincida con il `docId` che serve alla REST API classica di Coda**
-(`api.coda.io`), quella su cui è basata `get-portfolio.js` e presumibilmente
-anche l'integrazione già esistente nel dataroom.
+Il collegamento live a Coda è stato configurato e verificato in produzione su
+`https://startup-irm.netlify.app/api/portfolio` → risponde `"source": "live"`
+con 30 aziende. I valori confermati contro il doc reale sono:
 
-Prima di configurare le env var in produzione:
-1. Apri il doc su **coda.io** (non su docs.superhuman.com) nel browser.
-2. L'URL avrà una forma tipo `https://coda.io/d/_d{DOC_ID}/...` → quello è
-   `CODA_DOC_ID` (con o senza underscore iniziale, verifica dalla barra
-   indirizzi o dal "Copy doc link").
-3. Nel doc, apri la tabella sorgente **"MDB - IRM"** (quella sincronizzata,
-   non la view "Schede IRM") e recupera il suo Table ID dall'URL o da
-   Settings → API.
-4. Genera un token da coda.io/account (Settings → API Tokens).
-5. Imposta le tre env var su Netlify (Site settings → Environment variables),
-   scope **Functions** (attenzione al gotcha già noto: `envVarIsSecret: true`
-   esclude la var dagli scope `functions`/`runtime` — non marcarle come secret
-   se devono essere lette dalla function).
-6. Fai un redeploy e controlla `data-note` in fondo alla toolbar del
-   portfolio: dirà "Dati aggiornati in tempo reale da Coda" se il collegamento
-   funziona, altrimenti resta sul seed.
+| Env var | Valore | Note |
+|---|---|---|
+| `CODA_DOC_ID` | `l0LQphn-KT` | doc "Imment - Clienti" (coincide con l'ID negli URL dei loghi codahosted) |
+| `CODA_TABLE_ID` | `grid-jvjtv77lW1` | tabella sorgente **"MDB - IRM"**, 30 righe |
+| `CODA_API_TOKEN` | *(segreto)* | generato da coda.io → Account Settings → API Settings |
 
-Se scopri che gli ID Superhuman e gli ID Coda classici in realtà coincidono,
-questo intero paragrafo diventa superfluo — ma non l'ho potuto verificare da
-qui, quindi meglio controllare prima di fidarsi del fetch live in produzione.
+Il timore iniziale (Coda ridenominato **Superhuman Docs**, ID interni MCP
+`superhuman://...` potenzialmente diversi da quelli della REST classica
+`api.coda.io`) si è rivelato infondato: il `docId` classico coincide con
+quello usato dal connector, e l'endpoint `https://coda.io/apis/v1` risponde
+correttamente con questi ID.
 
-## ⚠️ Altro rischio: URL dei loghi
+Mapping colonne (nomi reali della tabella, usati in `get-portfolio.js`):
+`Company`, `Url Image` (→ logo), `Sito web`, `Pitch Deck [URL]`,
+`Campagna SFP` (→ N° round + stato), `Importo Round`, `Landing Page`, `LOI`.
 
-I loghi nel seed puntano a `codahosted.io/docs/.../blobs/...` (URL degli
-allegati Coda). Sono gli URL diretti che l'API restituisce oggi, ma gli
-allegati Coda possono in alcuni casi essere protetti o avere scadenza legata
-alla sessione/doc. Il frontend ha un fallback automatico (iniziali della
-startup su sfondo colorato) se un logo non carica — ma se noti loghi rotti in
-massa, vale la pena scaricare i PNG e servirli da `public/assets/logos/`
-invece che da Coda.
+### Se serve rigenerare/reimpostare le env var
 
-## TODO prima del deploy
+1. Genera un token da coda.io → Account Settings → **API Settings**.
+2. Imposta le tre env var su Netlify (Site configuration → Environment
+   variables). **Gotcha**: NON marcarle come *Secret* — `envVarIsSecret: true`
+   le esclude dagli scope `functions`/`runtime` e la function non le legge.
+3. Redeploy (le function leggono le env var solo al deploy).
+4. Verifica `data-note` in fondo alla toolbar ("Dati aggiornati in tempo reale
+   da Coda") o il campo `source` in `/api/portfolio`.
 
-- [ ] Sostituire `#TODO_SURVEY_URL` in `index.html` (2 occorrenze: hero e CTA
-      banner) con il link reale della survey Investor Scoring (Tally/Coda/
-      Typeform — a te la scelta).
-- [ ] Decidere se/come configurare il fetch live (vedi sopra) o tenere il
-      seed statico e aggiornarlo a mano quando cambia il portfolio.
-- [ ] Verificare i loghi in produzione (vedi rischio sopra).
+## URL dei loghi — verificato OK
+
+I loghi puntano a `codahosted.io/docs/.../blobs/...` (URL degli allegati Coda).
+Il timore che potessero essere protetti/scaduti **non si è verificato**: in
+produzione caricano correttamente (`HTTP 200`, `image/png`, accesso pubblico).
+Il frontend mantiene comunque un fallback automatico (iniziali della startup su
+sfondo colorato) se un singolo logo non carica. Solo se in futuro noti loghi
+rotti in massa, valuta di scaricare i PNG e servirli da
+`public/assets/logos/` invece che da Coda.
+
+## Stato / TODO
+
+- [x] Fetch live da Coda configurato e verificato in produzione (vedi sopra).
+- [x] Loghi verificati in produzione: caricano correttamente.
+- [ ] **CTA survey**: attualmente **nascoste** (attributo `hidden` su
+      `#survey-cta-hero` nell'hero e sull'intera sezione CTA banner in
+      `index.html`). Quando il form Investor Scoring è pronto: sostituire
+      `#TODO_SURVEY_URL` con il link reale (Tally/Coda/Typeform) e rimuovere
+      gli attributi `hidden` per riattivarle.
 
 ## Deploy
 
