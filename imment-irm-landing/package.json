@@ -1,0 +1,9 @@
+{
+  "name": "imment-irm-landing",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Landing IRM (Investor Relation Management) Imment, static + Netlify Function",
+  "engines": {
+    "node": ">=18"
+  }
+}
