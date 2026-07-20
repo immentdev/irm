@@ -216,10 +216,36 @@
     start();
   }
 
+  // ---------- Anteprima hero "Nel portfolio ora" ----------
+  function renderHeroPreview(companies) {
+    const box = document.getElementById('hero-preview');
+    if (!box) return;
+    const open = companies.filter(isOpenRound);
+    const list = (open.length ? open : companies).slice(0, 4);
+    if (!list.length) { box.innerHTML = ''; return; }
+    box.innerHTML = list
+      .map((c) => {
+        const logo = c.logo
+          ? `<span class="pv-logo"><img src="${c.logo}" alt="" loading="lazy" onerror="this.parentElement.textContent='${initials(c.name)}'"></span>`
+          : `<span class="pv-logo">${initials(c.name)}</span>`;
+        const href = c.landingPage || normalizeUrl(c.website) || '#portfolio';
+        const external = /^https?:\/\//i.test(href);
+        return `<a class="preview-item" href="${href}"${external ? ' target="_blank" rel="noopener"' : ''}>
+          ${logo}
+          <span class="pv-body">
+            <span class="pv-name">${c.name}</span>
+            <span class="pv-status ${statusClass(c.roundStatus)}">${c.roundStatus || ''}</span>
+          </span>
+        </a>`;
+      })
+      .join('');
+  }
+
   fetch('/api/portfolio')
     .then((res) => res.json())
     .then((data) => {
       allCompanies = data.companies || [];
+      renderHeroPreview(allCompanies);
       setupCarousel(allCompanies);
       render();
       if (data.source === 'seed') {
