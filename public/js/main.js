@@ -14,6 +14,51 @@
     return (c.roundStatus || '').toLowerCase().includes('in corso');
   }
 
+  // Loghi ufficiali esportati da Figma ("Loghi IRM_no ellisse"), serviti in locale:
+  // più nitidi e consistenti di quelli allegati su Coda. La chiave è il nome
+  // società normalizzato (minuscolo, senza caratteri speciali e senza "srl" finale).
+  // Chi non è in mappa (es. The JobGame) ricade automaticamente sul logo Coda.
+  const LOGO_FILES = {
+    '12venture': '12venture.png',
+    amagistech: 'amagistech.png',
+    awentia: 'awentia.png',
+    casaprofittoveloce: 'casa-profitto-veloce.png',
+    cementum: 'cementum.png',
+    citiculture: 'citiculture.png',
+    dbncommunication: 'dbn-communication.png',
+    digiduu: 'digiduu.png',
+    dokimazo: 'dokimazo.png',
+    farmaciemypharma: 'farmacie-mypharma.png',
+    fitporn: 'fitporn.png',
+    floremoria: 'floremoria.png',
+    genuinyblockmail: 'genuiny-blockmail.png',
+    goldsprint: 'goldsprint.png',
+    hodamycom: 'hodamy.png',
+    idrawater: 'idrawater.png',
+    laorange: 'la-orange.png',
+    linkyinnovation: 'linky-innovation.png',
+    mokapen: 'mokapen.png',
+    moneyviz: 'moneyviz.png',
+    nutrinsect: 'nutrinsect.png',
+    propositive: 'propositive.png',
+    ris8guru: 'ris8guru.png',
+    silla: 'silla.png',
+    suitefood: 'suitefood.png',
+    thespiritualmachine: 'the-spiritual-machine.png',
+    tuduu: 'tuduu.png',
+    verbalizza: 'verbalizza.png',
+    workingmom: 'working-mom.png',
+  };
+
+  function logoFor(name) {
+    const key = (name || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '')
+      .replace(/srl$/, '');
+    const file = LOGO_FILES[key];
+    return file ? '/assets/logos/' + file : '';
+  }
+
   function statusClass(status) {
     const s = (status || '').toLowerCase();
     if (s.includes('in corso')) return 'status-in-corso';
@@ -48,9 +93,11 @@
 
   function companyCard(c) {
     const website = normalizeUrl(c.website);
-    const logoBox = c.logo
-      ? `<div class="logo-box"><img src="${c.logo}" alt="${c.name} logo" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'logo-fallback\\'>${initials(c.name)}</span>'"></div>`
-      : `<div class="logo-box"><span class="logo-fallback">${initials(c.name)}</span></div>`;
+    // Priorità: logo locale da Figma → logo Coda → iniziali.
+    const logoSrc = logoFor(c.name) || c.logo;
+    const logoBox = logoSrc
+      ? `<div class="logo-band"><img src="${logoSrc}" alt="${c.name}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'logo-fallback\\'>${initials(c.name)}</span>'"></div>`
+      : `<div class="logo-band"><span class="logo-fallback">${initials(c.name)}</span></div>`;
 
     // Link informativi: solo quelli realmente presenti, con icona ed etichetta.
     const links = [];
@@ -77,9 +124,9 @@
     return `
       <div class="company-card" data-status="${c.roundStatus || ''}">
         <div class="card-head">
-          ${logoBox}
           <span class="status-badge ${statusClass(c.roundStatus)}">${c.roundStatus || '—'}</span>
         </div>
+        ${logoBox}
         <div class="card-body">
           <h3>${c.name}</h3>
           ${roundPill}
@@ -225,8 +272,9 @@
     if (!list.length) { box.innerHTML = ''; return; }
     box.innerHTML = list
       .map((c) => {
-        const logo = c.logo
-          ? `<span class="pv-logo"><img src="${c.logo}" alt="" loading="lazy" onerror="this.parentElement.textContent='${initials(c.name)}'"></span>`
+        const pvLogo = logoFor(c.name) || c.logo;
+        const logo = pvLogo
+          ? `<span class="pv-logo"><img src="${pvLogo}" alt="" loading="lazy" onerror="this.parentElement.textContent='${initials(c.name)}'"></span>`
           : `<span class="pv-logo">${initials(c.name)}</span>`;
         const href = c.landingPage || normalizeUrl(c.website) || '#portfolio';
         const external = /^https?:\/\//i.test(href);

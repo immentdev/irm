@@ -151,7 +151,7 @@ a { color: inherit; }
 }
 .preview-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-strong); }
 .preview-item .pv-logo {
-  width: 46px; height: 46px;
+  width: 76px; height: 46px;
   border-radius: 10px;
   background: #fff;
   border: 1px solid var(--imm-neutral-mid);
@@ -163,7 +163,12 @@ a { color: inherit; }
   font-size: 15px;
   color: var(--imm-trust-blue);
 }
-.preview-item .pv-logo img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+.preview-item .pv-logo img {
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto;
+  object-fit: contain;
+  padding: 5px;
+}
 .preview-item .pv-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .preview-item .pv-name {
   font-weight: 700;
@@ -524,25 +529,28 @@ p.section-sub {
 .company-card:hover { box-shadow: var(--shadow-strong); transform: translateY(-2px); }
 .company-card .card-head {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: flex-end;
 }
-.company-card .logo-box {
-  width: 80px; height: 80px;
-  border-radius: 14px;
-  background: #fff;
-  border: 1px solid var(--imm-neutral-mid);
-  box-shadow: var(--shadow);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  flex-shrink: 0;
+/* Banda logo a tutta larghezza: i wordmark orizzontali (la maggioranza)
+   vengono limitati dalla larghezza e non più schiacciati in un box quadrato. */
+.company-card .logo-band {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 4px;
 }
-.company-card .logo-box img { width: 100%; height: 100%; object-fit: contain; padding: 9px; }
+.company-card .logo-band img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
 .company-card .logo-fallback {
   font-family: var(--imm-font-accent);
   font-weight: 700;
-  font-size: 24px;
+  font-size: 28px;
   color: var(--imm-trust-blue);
 }
 .company-card .card-body { display: flex; flex-direction: column; gap: 8px; }

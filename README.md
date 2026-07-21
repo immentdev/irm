@@ -65,15 +65,27 @@ Mapping colonne (nomi reali della tabella, usati in `get-portfolio.js`):
 4. Verifica `data-note` in fondo alla toolbar ("Dati aggiornati in tempo reale
    da Coda") o il campo `source` in `/api/portfolio`.
 
-## URL dei loghi — verificato OK
+## Loghi startup — serviti in locale da Figma
 
-I loghi puntano a `codahosted.io/docs/.../blobs/...` (URL degli allegati Coda).
-Il timore che potessero essere protetti/scaduti **non si è verificato**: in
-produzione caricano correttamente (`HTTP 200`, `image/png`, accesso pubblico).
-Il frontend mantiene comunque un fallback automatico (iniziali della startup su
-sfondo colorato) se un singolo logo non carica. Solo se in futuro noti loghi
-rotti in massa, valuta di scaricare i PNG e servirli da
-`public/assets/logos/` invece che da Coda.
+I loghi ufficiali sono esportati dalla pagina Figma **"Loghi IRM_no ellisse"**
+(`Grafiche imment`, node `191-2`) in PNG @2x e serviti da
+`public/assets/logos/` — più nitidi e consistenti degli allegati Coda.
+
+La catena di fallback in `main.js` è: **logo locale Figma → logo Coda →
+iniziali della startup**. La mappa `LOGO_FILES` associa il nome società
+normalizzato (minuscolo, senza caratteri speciali, senza `srl` finale) al file.
+
+Stato attuale: **29 startup su 30** hanno il logo locale. Fa eccezione
+**The JobGame**, che in Figma non è un'immagine ma testo dentro un'ellisse:
+usa il logo Coda.
+
+Attenzione ai nomi non coincidenti: `Logo MarketRock` → **DBN Communication**,
+`Logo Coccola` → **Suitefood**, `image001` → **Citiculture**,
+`hy_fulllogo_light` → **Hodamy.com**, `logo_BLACK_PNG_transparent` →
+**Linky Innovation**, `Group 6` (goccia) → **Idrawater**.
+
+**Per aggiungere una startup**: esporta il logo da Figma, salvalo in
+`public/assets/logos/` e aggiungi la voce in `LOGO_FILES`.
 
 ## Stato / TODO
 
