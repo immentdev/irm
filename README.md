@@ -79,11 +79,11 @@ rotti in massa, valuta di scaricare i PNG e servirli da
 
 - [x] Fetch live da Coda configurato e verificato in produzione (vedi sopra).
 - [x] Loghi verificati in produzione: caricano correttamente.
-- [ ] **CTA survey**: attualmente **nascoste** (attributo `hidden` su
-      `#survey-cta-hero` nell'hero e sull'intera sezione CTA banner in
-      `index.html`). Quando il form Investor Scoring è pronto: sostituire
-      `#TODO_SURVEY_URL` con il link reale (Tally/Coda/Typeform) e rimuovere
-      gli attributi `hidden` per riattivarle.
+- [x] **CTA survey attive**: collegate al form Tally "Investor Scoring"
+      (`https://tally.so/r/mVzVva`), sia nell'hero (`#survey-cta-hero`) sia
+      nel banner (`#survey-cta-banner`). Si aprono in una nuova scheda.
+- [ ] **PDF pagina di ringraziamento**: nel form Tally il testo "Scarica il
+      PDF Qui" è solo grassetto, senza link. Serve l'URL del PDF.
 
 ## Deploy
 

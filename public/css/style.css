@@ -52,7 +52,7 @@ a { color: inherit; }
   gap: 10px;
   padding: 20px 24px;
 }
-.site-header img { height: 32px; }
+.site-header img { height: 44px; }
 .site-header .badge {
   font-size: 12px;
   font-weight: 700;
@@ -216,6 +216,13 @@ a { color: inherit; }
   border: 1.5px solid var(--imm-trust-blue-dark);
 }
 .btn-secondary:hover { background: var(--imm-trust-blue-dark); color: #fff; }
+/* Variante secondaria leggibile su fondo scuro (hero) */
+.btn-on-dark {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+}
+.btn-on-dark:hover { background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.45); }
 .btn-ghost {
   background: var(--imm-neutral-base);
   color: var(--imm-trust-blue-mid);
@@ -626,7 +633,7 @@ footer .wrap {
   font-size: 13px;
 }
 footer a { color: #C9D7EE; text-decoration: underline; }
-footer img { height: 26px; margin-bottom: 12px; }
+footer img { height: 34px; margin-bottom: 12px; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 860px) {
