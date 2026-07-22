@@ -75,9 +75,13 @@ La catena di fallback in `main.js` è: **logo locale Figma → logo Coda →
 iniziali della startup**. La mappa `LOGO_FILES` associa il nome società
 normalizzato (minuscolo, senza caratteri speciali, senza `srl` finale) al file.
 
-Stato attuale: **29 startup su 30** hanno il logo locale. Fa eccezione
-**The JobGame**, che in Figma non è un'immagine ma testo dentro un'ellisse:
-usa il logo Coda.
+Stato attuale: **tutte e 30 le startup** hanno il logo locale.
+
+**The JobGame** è l'unico SVG (`the-jobgame.svg`, fornito a parte perché in
+Figma è testo dentro un'ellisse, non un'immagine). ⚠️ L'originale aveva tutti i
+tracciati `fill: #fff` — pensato per fondi scuri, sarebbe stato invisibile sulla
+card bianca. È stato **ricolorato in `#0E2D54`** (blu scuro del brand). Se in
+futuro serve la versione bianca per un fondo scuro, va tenuto un file separato.
 
 Attenzione ai nomi non coincidenti: `Logo MarketRock` → **DBN Communication**,
 `Logo Coccola` → **Suitefood**, `image001` → **Citiculture**,

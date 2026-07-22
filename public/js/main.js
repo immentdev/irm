@@ -44,6 +44,9 @@
     ris8guru: 'ris8guru.png',
     silla: 'silla.png',
     suitefood: 'suitefood.png',
+    // SVG fornito a parte: l'originale era bianco (per fondi scuri),
+    // ricolorato nel blu scuro del brand per essere leggibile sulla card.
+    thejobgame: 'the-jobgame.svg',
     thespiritualmachine: 'the-spiritual-machine.png',
     tuduu: 'tuduu.png',
     verbalizza: 'verbalizza.png',
