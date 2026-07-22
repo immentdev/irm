@@ -91,6 +91,24 @@ Attenzione ai nomi non coincidenti: `Logo MarketRock` → **DBN Communication**,
 **Per aggiungere una startup**: esporta il logo da Figma, salvalo in
 `public/assets/logos/` e aggiungi la voce in `LOGO_FILES`.
 
+### ⚠️ Sfondo grigio negli export Figma
+
+`download_assets` restituisce due cose: l'**export del nodo** e le **immagini
+sorgente** (`rawImages`). L'export del nodo **include lo sfondo del canvas
+Figma** (`#F5F5F5`), che si vede come rettangolo grigio dietro al logo sulla
+card bianca. Le immagini sorgente sono invece già trasparenti.
+
+I file attuali sono stati ripuliti a posteriori (region grow dai bordi con
+gestione dell'antialiasing): 25 file puliti; saltati di proposito
+`casa-profitto-veloce` (il box nero è parte del logo) e `mokapen`,
+`propositive`, `the-spiritual-machine` (fondo bianco, invisibile su card
+bianca).
+
+**Se riesporti un logo da Figma: usa le `rawImages`, non l'export del nodo** —
+eviti del tutto il problema. Eccezione: i nodi che sono gruppi (icona + testo,
+es. FloreMoria, Genuiny BlockMail) o vettoriali puri (Idrawater) non hanno
+sorgenti utilizzabili e vanno presi dall'export, quindi ripuliti.
+
 ## Stato / TODO
 
 - [x] Fetch live da Coda configurato e verificato in produzione (vedi sopra).
