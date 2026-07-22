@@ -99,10 +99,20 @@ Figma** (`#F5F5F5`), che si vede come rettangolo grigio dietro al logo sulla
 card bianca. Le immagini sorgente sono invece già trasparenti.
 
 I file attuali sono stati ripuliti a posteriori (region grow dai bordi con
-gestione dell'antialiasing): 25 file puliti; saltati di proposito
-`casa-profitto-veloce` (il box nero è parte del logo) e `mokapen`,
-`propositive`, `the-spiritual-machine` (fondo bianco, invisibile su card
-bianca).
+gestione dell'antialiasing): rimosso il grigio `#F5F5F5` da 25 file e il
+fondo **bianco** da `mokapen`, `propositive`, `the-spiritual-machine`.
+Unico saltato: `casa-profitto-veloce`, dove il box nero **è** il logo.
+Da `idrawater` è stata rimossa anche l'ellisse bianca decorativa (la pagina
+Figma si chiama non a caso "no ellisse").
+
+### Ritaglio al contenuto
+
+Tutti i loghi sono **ritagliati al bounding box del contenuto** (+1,5% di
+margine). Serve perché diversi export avevano margini vuoti enormi cotti
+dentro — `fitporn` era un quadrato 764×764 con dentro un logo 548×194 (18% di
+riempimento), quindi nella banda risultava grande un terzo degli altri. Ora
+tutti stanno fra l'84% e il 100% di riempimento, con resa ottica uniforme.
+**Se aggiungi un logo, ritaglialo** o sembrerà più piccolo degli altri.
 
 **Se riesporti un logo da Figma: usa le `rawImages`, non l'export del nodo** —
 eviti del tutto il problema. Eccezione: i nodi che sono gruppi (icona + testo,
