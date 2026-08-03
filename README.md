@@ -88,8 +88,29 @@ Attenzione ai nomi non coincidenti: `Logo MarketRock` → **DBN Communication**,
 `hy_fulllogo_light` → **Hodamy.com**, `logo_BLACK_PNG_transparent` →
 **Linky Innovation**, `Group 6` (goccia) → **Idrawater**.
 
-**Per aggiungere una startup**: esporta il logo da Figma, salvalo in
-`public/assets/logos/` e aggiungi la voce in `LOGO_FILES`.
+### Aggiungere il logo di una startup NUOVA → si fa da Coda
+
+Le nuove startup **non richiedono modifiche al codice né deploy**. La priorità
+in `main.js` è `logo locale (LOGO_FILES) → logo da Coda → iniziali`: una
+startup non presente nella mappa prende il logo direttamente da Coda.
+
+Procedura (tutto dentro Coda, ambiente unico coi dati):
+
+1. Aggiungi/hai già la riga della startup nella tabella `MDB - IRM`.
+2. Nella colonna allegato **`Image`**, carica il logo. La colonna formula
+   `Url Image` deriva l'URL da sola; la function lo restituisce e la pagina lo
+   mostra entro ~5 min (cache), **senza deploy**.
+3. Formato: **PNG a sfondo trasparente e ritagliato al contenuto** (no bordi
+   vuoti, no sfondo bianco/grigio). Coda non elabora le immagini: quello che
+   carichi è quello che si vede. La banda usa `object-fit: contain`, quindi il
+   logo non viene mai deformato — ma sfondo e margini cotti nel file sì.
+   - Dove prenderlo pulito: il brand kit della startup (di solito ha la
+     versione trasparente), oppure remove.bg per i casi sciolti.
+   - SVG: meglio evitarlo su Coda (supporto allegati incerto); usa PNG.
+
+I 30 loghi curati restano invece file locali in `public/assets/logos/`
+(qualità già garantita). Per **sostituire** uno di questi serve toccare il file
++ la mappa e fare un deploy — ma è un caso raro.
 
 ### ⚠️ Sfondo grigio negli export Figma
 
