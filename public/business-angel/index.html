@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rete Business Angel | Imment</title>
+<meta name="description" content="Entra nella rete Business Angel di Imment: non serve essere già un investitore per farti conoscere dalle startup del network.">
+<link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* Estensioni minime — stessi token, stessi componenti della home IRM.
+     Solo ciò che la home non ha già: la fascia di collegamento e l'adattamento
+     a 3 colonne di .steps (la home ne ha 4). */
+  .link-bar { background: var(--imm-neutral-base); border-bottom: 1px solid var(--imm-neutral-mid); }
+  .link-bar .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px; padding: 12px 24px; font-size: 13.5px;
+    color: var(--imm-text-secondary);
+  }
+  .link-bar a { color: var(--imm-trust-blue-mid); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  #come-funziona .steps { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 860px) { #come-funziona .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { #come-funziona .steps { grid-template-columns: 1fr; } }
+  #porta .benefits { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 860px) { #porta .benefits { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { #porta .benefits { grid-template-columns: 1fr; } }
+  .preview-static .pv-logo { font-size: 20px; }
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="../"><img src="../assets/logo-horizontal-light.svg" alt="Imment"></a>
+    <span class="badge">Rete Business Angel</span>
+  </div>
+</header>
+
+<div class="link-bar">
+  <div class="wrap">
+    <span>Vuoi già ricevere opportunità SFP mirate sul tuo profilo?</span>
+    <a href="../">Vai alla Community Smart Investor →</a>
+  </div>
+</div>
+
+<!-- HERO SPLIT -->
+<section class="hero-split">
+  <div class="hero-left">
+    <div class="hero-left-inner">
+      <div class="hero-eyebrow">Rete Business Angel</div>
+      <h1>Non serve <em>essere già</em> un business angel</h1>
+      <p>Se hai relazioni, competenze o esperienza che possono servire a una startup — anche senza mettere capitale — questo è il posto giusto per farti conoscere.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://tally.so/r/yPb0e6" id="join-cta-hero" target="_blank" rel="noopener">Iscriviti alla rete →</a>
+        <a class="btn btn-on-dark" href="#come-funziona">Scopri come funziona</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="preview-label">Cosa puoi mettere a disposizione</div>
+      <div class="preview-static" style="display:flex; flex-direction:column; gap:12px;">
+        <div class="preview-item">
+          <div class="pv-logo">€</div>
+          <div class="pv-body">
+            <span class="pv-name">Capitale</span>
+            <span class="round-pill" style="align-self:flex-start;">SFP o SAFE</span>
+          </div>
+        </div>
+        <div class="preview-item">
+          <div class="pv-logo">↔</div>
+          <div class="pv-body">
+            <span class="pv-name">Relazioni e contatti</span>
+            <span class="round-pill" style="align-self:flex-start;">Vesting</span>
+          </div>
+        </div>
+        <div class="preview-item">
+          <div class="pv-logo">★</div>
+          <div class="pv-body">
+            <span class="pv-name">Competenze e consulenza</span>
+            <span class="round-pill" style="align-self:flex-start;">Vesting</span>
+          </div>
+        </div>
+        <div class="preview-item">
+          <div class="pv-logo">⏱</div>
+          <div class="pv-body">
+            <span class="pv-name">Tempo e mentorship</span>
+            <span class="round-pill" style="align-self:flex-start;">Vesting</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERCHÉ -->
+<section id="perche">
+  <div class="wrap">
+    <p class="section-label">Perché</p>
+    <h2 class="section-title">Un pregiudizio che ci fa perdere persone utili</h2>
+    <div class="why-grid">
+      <ul>
+        <li>Chi arriva ai nostri eventi e non capisce subito che vendiamo processi, non startup da comprare, spesso viene liquidato come "non un investitore".</li>
+        <li>Molte di queste persone sarebbero disposte a mettersi in gioco per una startup — con una call, un contatto, un consiglio — anche senza mettere capitale.</li>
+        <li>Il risultato: una rete di persone potenzialmente utili che non abbiamo mai attivato.</li>
+      </ul>
+      <div class="solution">
+        <span class="tag">Rete Business Angel</span>
+        <p>Per questo abbiamo aperto un canale più semplice: non un profiling da investitore, ma un modo per farti conoscere e scegliere tu, startup per startup, se e come partecipare.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COME FUNZIONA (dark) -->
+<section id="come-funziona" class="section-dark">
+  <div class="wrap">
+    <p class="section-label">Come funziona</p>
+    <h2 class="section-title">Tre passaggi, nessun impegno anticipato</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Ti iscrivi</h3>
+        <p>Compili un form breve: chi sei, cosa sai fare, cosa potresti mettere a disposizione.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Ti mostriamo le startup</h3>
+        <p>Periodicamente ricevi le startup del network in cerca di supporto. Scegli tu quelle che ti interessano.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Se c'è fit, si struttura</h3>
+        <p>Una call con la startup e, se procedete, Imment struttura l'accordo — SFP/SAFE se metti capitale, vesting se metti lavoro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COSA OTTIENI -->
+<section id="porta">
+  <div class="wrap">
+    <p class="section-label">Cosa ottieni</p>
+    <h2 class="section-title">Entrare nella rete non ti impegna a nulla</h2>
+    <div class="benefits">
+      <div class="benefit-card"><div class="icon"></div><h3>Nessun obbligo</h3><p>Vedi le startup, decidi tu se e quando farti avanti.</p></div>
+      <div class="benefit-card"><div class="icon"></div><h3>Visibilità reale</h3><p>Le startup del network vedono il tuo profilo quando cercano proprio il tuo tipo di contributo.</p></div>
+      <div class="benefit-card"><div class="icon"></div><h3>Formato flessibile</h3><p>Capitale, relazioni, competenze o tempo: l'accordo si adatta a cosa porti.</p></div>
+      <div class="benefit-card"><div class="icon"></div><h3>Accordo strutturato</h3><p>Se c'è fit, Imment gestisce la parte legale e contrattuale — SFP, SAFE o vesting.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section>
+  <div class="wrap">
+    <div class="cta-banner">
+      <h2>Fatti conoscere dalla rete</h2>
+      <p>Due minuti per iscriverti. Nessun impegno: decidi tu, startup per startup, se procedere.</p>
+      <a class="btn btn-primary" href="https://tally.so/r/yPb0e6" id="join-cta-banner" target="_blank" rel="noopener">Iscriviti alla rete →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <img src="../assets/logo-horizontal-light.svg" alt="Imment">
+      <div>
+        Imment S.r.l. · Piazza Teresa Noce 17/D · 10155 Torino<br>
+        imment@pec.it · P.IVA 12804470016
+      </div>
+    </div>
+    <div>
+      <a href="https://www.imment.it/informativa-privacy">Privacy Policy</a> ·
+      <a href="https://www.imment.it/cookie-policy">Cookie Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
