@@ -11,23 +11,88 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
 <style>
-  /* Estensioni minime — stessi token, stessi componenti della home IRM.
-     Solo ciò che la home non ha già: la fascia di collegamento e l'adattamento
-     a 3 colonne di .steps (la home ne ha 4). */
-  .link-bar { background: var(--imm-neutral-base); border-bottom: 1px solid var(--imm-neutral-mid); }
+  /* Componenti specifici di questa pagina. Riusano solo i token del brand
+     (colori/font/ombre) della home IRM; NON riusano i componenti del
+     portfolio (preview-item, pv-logo, round-pill). style.css non è toccata. */
+
+  /* Fascia di collegamento verso IRM */
+  .link-bar { background: var(--imm-trust-blue-dark); }
   .link-bar .wrap {
     display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 10px; padding: 12px 24px; font-size: 13.5px;
-    color: var(--imm-text-secondary);
+    flex-wrap: wrap; gap: 10px 18px; padding: 11px 24px; font-size: 13.5px;
+    color: #C9D7EE;
   }
-  .link-bar a { color: var(--imm-trust-blue-mid); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .link-bar a {
+    color: #fff; font-weight: 600; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .link-bar a svg { width: 15px; height: 15px; }
+  .link-bar a:hover { color: var(--imm-signal-teal); }
+
+  /* Hero destro: "Cosa puoi mettere a disposizione" — card dedicata */
+  .offer-card {
+    background: #fff;
+    border: 1px solid var(--imm-neutral-mid);
+    border-radius: 18px;
+    box-shadow: var(--shadow-strong);
+    padding: 24px;
+  }
+  .offer-card .oc-head {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--imm-text-secondary); margin: 0 0 4px;
+  }
+  .offer-card .oc-head .dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--imm-signal-teal);
+  }
+  .offer-card .oc-sub { font-size: 13.5px; color: var(--imm-text-secondary); margin: 0 0 18px; line-height: 1.45; }
+  .offer-list { display: flex; flex-direction: column; gap: 10px; }
+  .offer-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 14px; border-radius: 13px;
+    background: var(--imm-neutral-base);
+    border: 1px solid var(--imm-neutral-mid);
+  }
+  .offer-icon {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .offer-icon svg { width: 22px; height: 22px; }
+  .offer-row .rt { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .offer-row .t { font-weight: 700; font-size: 14.5px; color: var(--imm-text-primary); }
+  .offer-row .s { font-size: 12px; color: var(--imm-text-secondary); }
+
+  /* Chip di tinta brand (icone hero + benefici) */
+  .tint-blue    { background: rgba(81, 149, 255, 0.15);  color: var(--imm-trust-blue-mid); }
+  .tint-teal    { background: rgba(5, 216, 200, 0.16);   color: var(--imm-signal-teal-dark); }
+  .tint-magenta { background: rgba(211, 0, 131, 0.11);   color: var(--imm-equity-magenta); }
+  .tint-yellow  { background: rgba(250, 222, 41, 0.32);  color: #8a6d00; }
+
+  /* "Come funziona": 3 step (la home ne ha 4) */
   #come-funziona .steps { grid-template-columns: repeat(3, 1fr); }
   @media (max-width: 860px) { #come-funziona .steps { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) { #come-funziona .steps { grid-template-columns: 1fr; } }
+  /* numeri step come "chip" per dare più struttura */
+  #come-funziona .step .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; border-radius: 12px; font-size: 18px;
+    background: rgba(5, 216, 200, 0.14); color: var(--imm-signal-teal);
+  }
+
+  /* "Cosa ottieni": 4 card con icona SVG al posto del quadrato-gradiente */
   #porta .benefits { grid-template-columns: repeat(4, 1fr); }
   @media (max-width: 860px) { #porta .benefits { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) { #porta .benefits { grid-template-columns: 1fr; } }
-  .preview-static .pv-logo { font-size: 20px; }
+  #porta .benefit-card .icon {
+    width: 46px; height: 46px; border-radius: 12px; margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #porta .benefit-card .icon svg { width: 24px; height: 24px; }
+  /* la tinta di sfondo deve battere il gradiente base di .benefit-card .icon */
+  #porta .benefit-card .icon.tint-blue    { background: rgba(81, 149, 255, 0.15); }
+  #porta .benefit-card .icon.tint-teal    { background: rgba(5, 216, 200, 0.16); }
+  #porta .benefit-card .icon.tint-magenta { background: rgba(211, 0, 131, 0.11); }
+  #porta .benefit-card .icon.tint-yellow  { background: rgba(250, 222, 41, 0.32); }
 </style>
 </head>
 <body>
@@ -44,7 +109,9 @@
 <div class="link-bar">
   <div class="wrap">
     <span>Vuoi già ricevere opportunità SFP mirate sul tuo profilo?</span>
-    <a href="../">Vai alla Community Smart Investor →</a>
+    <a href="../">Vai alla Community Smart Investor
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
   </div>
 </div>
 
@@ -63,34 +130,33 @@
   </div>
   <div class="hero-right">
     <div class="hero-right-inner">
-      <div class="preview-label">Cosa puoi mettere a disposizione</div>
-      <div class="preview-static" style="display:flex; flex-direction:column; gap:12px;">
-        <div class="preview-item">
-          <div class="pv-logo">€</div>
-          <div class="pv-body">
-            <span class="pv-name">Capitale</span>
-            <span class="round-pill" style="align-self:flex-start;">SFP o SAFE</span>
+      <div class="offer-card">
+        <p class="oc-head"><span class="dot"></span> Cosa puoi mettere a disposizione</p>
+        <p class="oc-sub">Scegli tu come partecipare. Il capitale non è obbligatorio.</p>
+        <div class="offer-list">
+          <div class="offer-row">
+            <span class="offer-icon tint-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8.5a4.5 4.5 0 1 0 0 7"/><path d="M6 11h7"/><path d="M6 14h6"/></svg>
+            </span>
+            <span class="rt"><span class="t">Capitale</span><span class="s">Strutturato in SFP o SAFE</span></span>
           </div>
-        </div>
-        <div class="preview-item">
-          <div class="pv-logo">↔</div>
-          <div class="pv-body">
-            <span class="pv-name">Relazioni e contatti</span>
-            <span class="round-pill" style="align-self:flex-start;">Vesting</span>
+          <div class="offer-row">
+            <span class="offer-icon tint-teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.3 10.8 15.7 6.2"/><path d="M8.3 13.2 15.7 17.8"/></svg>
+            </span>
+            <span class="rt"><span class="t">Relazioni e contatti</span><span class="s">Riconosciuto con vesting</span></span>
           </div>
-        </div>
-        <div class="preview-item">
-          <div class="pv-logo">★</div>
-          <div class="pv-body">
-            <span class="pv-name">Competenze e consulenza</span>
-            <span class="round-pill" style="align-self:flex-start;">Vesting</span>
+          <div class="offer-row">
+            <span class="offer-icon tint-magenta">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z"/></svg>
+            </span>
+            <span class="rt"><span class="t">Competenze e consulenza</span><span class="s">Riconosciuto con vesting</span></span>
           </div>
-        </div>
-        <div class="preview-item">
-          <div class="pv-logo">⏱</div>
-          <div class="pv-body">
-            <span class="pv-name">Tempo e mentorship</span>
-            <span class="round-pill" style="align-self:flex-start;">Vesting</span>
+          <div class="offer-row">
+            <span class="offer-icon tint-yellow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </span>
+            <span class="rt"><span class="t">Tempo e mentorship</span><span class="s">Riconosciuto con vesting</span></span>
           </div>
         </div>
       </div>
@@ -124,17 +190,17 @@
     <h2 class="section-title">Tre passaggi, nessun impegno anticipato</h2>
     <div class="steps">
       <div class="step">
-        <div class="num">01</div>
+        <div class="num">1</div>
         <h3>Ti iscrivi</h3>
         <p>Compili un form breve: chi sei, cosa sai fare, cosa potresti mettere a disposizione.</p>
       </div>
       <div class="step">
-        <div class="num">02</div>
+        <div class="num">2</div>
         <h3>Ti mostriamo le startup</h3>
         <p>Periodicamente ricevi le startup del network in cerca di supporto. Scegli tu quelle che ti interessano.</p>
       </div>
       <div class="step">
-        <div class="num">03</div>
+        <div class="num">3</div>
         <h3>Se c'è fit, si struttura</h3>
         <p>Una call con la startup e, se procedete, Imment struttura l'accordo — SFP/SAFE se metti capitale, vesting se metti lavoro.</p>
       </div>
@@ -148,10 +214,30 @@
     <p class="section-label">Cosa ottieni</p>
     <h2 class="section-title">Entrare nella rete non ti impegna a nulla</h2>
     <div class="benefits">
-      <div class="benefit-card"><div class="icon"></div><h3>Nessun obbligo</h3><p>Vedi le startup, decidi tu se e quando farti avanti.</p></div>
-      <div class="benefit-card"><div class="icon"></div><h3>Visibilità reale</h3><p>Le startup del network vedono il tuo profilo quando cercano proprio il tuo tipo di contributo.</p></div>
-      <div class="benefit-card"><div class="icon"></div><h3>Formato flessibile</h3><p>Capitale, relazioni, competenze o tempo: l'accordo si adatta a cosa porti.</p></div>
-      <div class="benefit-card"><div class="icon"></div><h3>Accordo strutturato</h3><p>Se c'è fit, Imment gestisce la parte legale e contrattuale — SFP, SAFE o vesting.</p></div>
+      <div class="benefit-card">
+        <div class="icon tint-teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+        </div>
+        <h3>Nessun obbligo</h3><p>Vedi le startup, decidi tu se e quando farti avanti.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon tint-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Visibilità reale</h3><p>Le startup del network vedono il tuo profilo quando cercano proprio il tuo tipo di contributo.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon tint-magenta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="8" x2="20" y2="8"/><circle cx="9" cy="8" r="2.4"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="15" cy="16" r="2.4"/></svg>
+        </div>
+        <h3>Formato flessibile</h3><p>Capitale, relazioni, competenze o tempo: l'accordo si adatta a cosa porti.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon tint-yellow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="m9 15 2 2 4-4"/></svg>
+        </div>
+        <h3>Accordo strutturato</h3><p>Se c'è fit, Imment gestisce la parte legale e contrattuale — SFP, SAFE o vesting.</p>
+      </div>
     </div>
   </div>
 </section>
