@@ -97,6 +97,26 @@
   #porta .benefit-card .icon.tint-teal    { background: rgba(5, 216, 200, 0.16); }
   #porta .benefit-card .icon.tint-magenta { background: rgba(211, 0, 131, 0.11); }
   #porta .benefit-card .icon.tint-yellow  { background: rgba(250, 222, 41, 0.32); }
+
+  /* Ritocco 1: card "Cosa ottieni" uniformate alle tile dei contributi */
+  #porta .benefit-card {
+    background: #fff; border: 1px solid var(--imm-neutral-mid);
+    border-radius: 14px; box-shadow: var(--shadow);
+  }
+
+  /* Ritocco 2: reveal discreto allo scroll.
+     Lo stato nascosto è attivo SOLO se il JS aggiunge .reveal-ready e non c'è
+     reduced-motion — così senza JS o con reduced-motion nulla resta invisibile. */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal-ready .reveal {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal-ready .reveal.is-in { opacity: 1; transform: none; }
+    .reveal-ready .reveal:nth-child(2) { transition-delay: 0.07s; }
+    .reveal-ready .reveal:nth-child(3) { transition-delay: 0.14s; }
+    .reveal-ready .reveal:nth-child(4) { transition-delay: 0.21s; }
+  }
 </style>
 </head>
 <body>
@@ -139,28 +159,28 @@
     <h2 class="section-title">Scegli tu come partecipare</h2>
     <p class="section-sub">Il capitale non è obbligatorio: anche relazioni, competenze o tempo hanno valore per una startup — e vengono riconosciuti.</p>
     <div class="offer-grid">
-      <div class="offer-tile">
+      <div class="offer-tile reveal">
         <span class="offer-icon tint-blue">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8.5a4.5 4.5 0 1 0 0 7"/><path d="M6 11h7"/><path d="M6 14h6"/></svg>
         </span>
         <h3>Capitale</h3>
         <span class="tag">Strutturato in SFP o SAFE</span>
       </div>
-      <div class="offer-tile">
+      <div class="offer-tile reveal">
         <span class="offer-icon tint-teal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.3 10.8 15.7 6.2"/><path d="M8.3 13.2 15.7 17.8"/></svg>
         </span>
         <h3>Relazioni e contatti</h3>
         <span class="tag">Riconosciuto con vesting</span>
       </div>
-      <div class="offer-tile">
+      <div class="offer-tile reveal">
         <span class="offer-icon tint-magenta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z"/></svg>
         </span>
         <h3>Competenze e consulenza</h3>
         <span class="tag">Riconosciuto con vesting</span>
       </div>
-      <div class="offer-tile">
+      <div class="offer-tile reveal">
         <span class="offer-icon tint-yellow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
         </span>
@@ -196,17 +216,17 @@
     <p class="section-label">Come funziona</p>
     <h2 class="section-title">Tre passaggi, nessun impegno anticipato</h2>
     <div class="steps">
-      <div class="step">
+      <div class="step reveal">
         <div class="num">1</div>
         <h3>Ti iscrivi</h3>
         <p>Compili un form breve: chi sei, cosa sai fare, cosa potresti mettere a disposizione.</p>
       </div>
-      <div class="step">
+      <div class="step reveal">
         <div class="num">2</div>
         <h3>Ti mostriamo le startup</h3>
         <p>Periodicamente ricevi le startup del network in cerca di supporto. Scegli tu quelle che ti interessano.</p>
       </div>
-      <div class="step">
+      <div class="step reveal">
         <div class="num">3</div>
         <h3>Se c'è fit, si struttura</h3>
         <p>Una call con la startup e, se procedete, Imment struttura l'accordo — SFP/SAFE se metti capitale, vesting se metti lavoro.</p>
@@ -221,25 +241,25 @@
     <p class="section-label">Cosa ottieni</p>
     <h2 class="section-title">Entrare nella rete non ti impegna a nulla</h2>
     <div class="benefits">
-      <div class="benefit-card">
+      <div class="benefit-card reveal">
         <div class="icon tint-teal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
         </div>
         <h3>Nessun obbligo</h3><p>Vedi le startup, decidi tu se e quando farti avanti.</p>
       </div>
-      <div class="benefit-card">
+      <div class="benefit-card reveal">
         <div class="icon tint-blue">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
         </div>
         <h3>Visibilità reale</h3><p>Le startup del network vedono il tuo profilo quando cercano proprio il tuo tipo di contributo.</p>
       </div>
-      <div class="benefit-card">
+      <div class="benefit-card reveal">
         <div class="icon tint-magenta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="8" x2="20" y2="8"/><circle cx="9" cy="8" r="2.4"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="15" cy="16" r="2.4"/></svg>
         </div>
         <h3>Formato flessibile</h3><p>Capitale, relazioni, competenze o tempo: l'accordo si adatta a cosa porti.</p>
       </div>
-      <div class="benefit-card">
+      <div class="benefit-card reveal">
         <div class="icon tint-yellow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="m9 15 2 2 4-4"/></svg>
         </div>
@@ -275,6 +295,20 @@
     </div>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('reveal-ready');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  })();
+</script>
 
 </body>
 </html>
