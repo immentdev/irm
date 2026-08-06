@@ -97,13 +97,15 @@ a { color: inherit; }
   font-family: var(--imm-font-accent);
   font-weight: 800;
   font-size: clamp(30px, 3.7vw, 46px);
-  line-height: 1.1;
+  line-height: 1.2;
   letter-spacing: -0.01em;
   margin: 0 0 18px;
   color: #fff;
 }
 .hero-left h1 em {
   font-style: normal;
+  display: inline-block;
+  padding-bottom: 0.04em;
   background: linear-gradient(90deg, var(--imm-signal-teal) 0%, var(--imm-capital-yellow) 100%);
   -webkit-background-clip: text;
   background-clip: text;
