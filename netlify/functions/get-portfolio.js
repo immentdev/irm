@@ -123,9 +123,18 @@ function withLocalLogo(company) {
   return local ? { ...company, logo: local } : company;
 }
 
+// Stati round che NON vanno mostrati in pagina (fuori portfolio pubblico,
+// ma restano nella tabella Coda per lo storico). Case-insensitive.
+const HIDDEN_STATUSES = ['archiviata'];
+
+function isVisible(company) {
+  const status = (company.roundStatus || '').trim().toLowerCase();
+  return !HIDDEN_STATUSES.includes(status);
+}
+
 exports.handler = async function handler() {
   try {
-    const companies = (await fetchLiveFromCoda()).map(withLocalLogo);
+    const companies = (await fetchLiveFromCoda()).map(withLocalLogo).filter(isVisible);
     if (!companies.length) throw new Error('Nessuna riga restituita da Coda');
     return {
       statusCode: 200,
@@ -145,7 +154,7 @@ exports.handler = async function handler() {
       body: JSON.stringify({
         source: 'seed',
         error: err.message,
-        companies: seed,
+        companies: seed.filter(isVisible),
       }),
     };
   }
